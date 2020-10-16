@@ -7,10 +7,19 @@
 </head>
 <body>
     <div id="data">
-        <button onclick="printToDoc()">List teams to console!</button>
-        <div id="teams"></div>
+        <form>
+            <label for="teamSearch">Search for a team:</label>
+            <input name="teamSearch" id="teamSearch" type="text">
+            <input type="button" value="Search" onclick="printToDoc()">
+        </form>
     </div>
+    <section>
+        <h2>Results:</h2>
+        <div id="teams">
+
+        </div>
+    </section>
 </body>
-<!-- <script src="assets/js/footballAPI.js" type="text/javascript"></script> -->
-<script src="assets/js/test.js" type="text/javascript"></script>
+<script src="assets/js/footballAPI.js" type="text/javascript"></script>
+<!-- <script src="assets/js/test.js" type="text/javascript"></script> -->
 </html>
