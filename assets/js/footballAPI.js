@@ -24,18 +24,48 @@ function printToDoc() {
         console.dir(data);
 
         if (data.api.results == 0) {
-            results.innerHTML = "No teams found.  Please check the spelling or try a different team name.";
+            results.innerHTML = "Sorry, no teams found.  Please check the spelling or try searching a different team name.";
         } else {
-            teams = data.api.teams;
-            teams.forEach(function(item) {
-                console.log(item);
-                results.innerHTML += `<p>${item.name}</p>`;
-                results.onclick = function showClubDetails(teams){
-                    console.log(teams);
-                };
-            });
-        }
-        
-        
+            let teams = data.api.teams;
+
+            for (let i=0; i<teams.length; i++) {
+                results.innerHTML += `<p class="teamList">${teams[i].name}</p>`
+            };
+            // Problem encountered:  How to return the corresponding array for each result when clicked.
+            // Solved: By referencing the explanation provided here:  http://www.howtocreate.co.uk/referencedvariables.html
+            // Create the results in the above for loop.  Create a second for loop which creates an onclick evenr for each result.
+            // The corresponding [i] is passed into the teams array and returns the 
+            let teamList = document.getElementsByClassName("teamList");
+            for (i=0; i<teamList.length; i++) {
+                teamList[i].onclick = (function(teamData) {
+                    return function() {
+                        console.dir(teamData);
+                        results.innerHTML = `
+                            <img class="clubLogo" src="${teamData.logo}">
+                            <h3>Location: ${clubLocation(teamData.venue_city, teamData.country)}</h3>
+                            <h3>Founded: ${nullDataCheck(teamData.founded)}</h3>
+                            <h3>Stadium Name: ${nullDataCheck(teamData.venue_name)}</h3>
+                            <h3>Stadium Capacity: ${nullDataCheck(teamData.venue_capacity)}</h3>
+                        `;
+                    };
+                })(teams[i]);
+            };
+        };
     });
+};
+
+function clubLocation(city, country) {
+    if (city==null) {
+        return country;
+    } else {
+        return city + ", " + country;
+    };
+};
+
+function nullDataCheck(dataCheck) {
+    if (dataCheck==null) {
+        return "Sorry, no data found.";
+    } else {
+        return dataCheck;
+    };
 };
