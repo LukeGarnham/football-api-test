@@ -42,8 +42,9 @@ function printToDoc() {
                         console.dir(teamData);
                         results.innerHTML = `
                             <img class="clubLogo" src="${teamData.logo}">
+                            <h3>Team: ${nullDataCheck(teamData.name)}</h3>
                             <h3>Location: ${clubLocation(teamData.venue_city, teamData.country)}</h3>
-                            <h3>Founded: ${nullDataCheck(teamData.founded)}</h3>
+                            <h3>Founded In: ${nullDataCheck(teamData.founded)}</h3>
                             <h3>Stadium Name: ${nullDataCheck(teamData.venue_name)}</h3>
                             <h3>Stadium Capacity: ${nullDataCheck(teamData.venue_capacity)}</h3>
                         `;
